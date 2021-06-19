@@ -533,3 +533,12 @@ app.get('/', (req, res) => {
 app.get('/forget', (req, res) => {
     res.render('forget', { admin: admin, title: "forget password" })
 });
+
+app.get('/import', (req, res) => {
+    const token = req.cookies.jwt;
+    jwt.verify(token, 'rahulk', async(err, decodedToken) => {
+        let admin = await Admin.findById(decodedToken.id);
+
+        res.render('import', { admin: admin, title: "Import" })
+    });
+}); 
